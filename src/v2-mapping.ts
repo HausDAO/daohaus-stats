@@ -4,6 +4,7 @@ import {
   Address,
   Bytes,
   EthereumBlock,
+  EthereumTransaction,
 } from "@graphprotocol/graph-ts";
 import {
   V2Moloch as Contract,
@@ -83,6 +84,7 @@ function getLoot(daoAddress: Address): BigInt {
 export function addBalance(
   daoAddress: Address,
   block: EthereumBlock,
+  transaction: EthereumTransaction,
   amount: BigInt,
   tokenAddress: Bytes,
   direction: string,
@@ -101,6 +103,7 @@ export function addBalance(
   balance.currentLoot = getLoot(daoAddress);
 
   balance.timestamp = block.timestamp.toString();
+  balance.transactionHash = transaction.hash;
   balance.tokenAddress = tokenAddress;
   balance.molochAddress = daoAddress;
   balance.moloch = daoAddress.toHex();
@@ -173,6 +176,7 @@ export function handleSummonComplete(event: SummonComplete): void {
   addBalance(
     event.address,
     event.block,
+    event.transaction,
     BigInt.fromI32(0),
     depoistToken,
     "initial",
@@ -227,6 +231,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
       addBalance(
         event.address,
         event.block,
+        event.transaction,
         proposal.tributeOffered,
         proposal.tributeToken,
         "tribute",
@@ -238,6 +243,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
       addBalance(
         event.address,
         event.block,
+        event.transaction,
         proposal.paymentRequested,
         proposal.paymentToken,
         "payment",
@@ -352,6 +358,7 @@ export function handleRagequit(event: Ragequit): void {
       addBalance(
         event.address,
         event.block,
+        event.transaction,
         amountToRageQuit,
         token,
         "payment",
@@ -376,6 +383,7 @@ export function handleTokensCollected(event: TokensCollected): void {
   addBalance(
     event.address,
     event.block,
+    event.transaction,
     event.params.amountToCollect,
     event.params.token,
     "tribute",

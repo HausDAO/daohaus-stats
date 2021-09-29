@@ -239,6 +239,15 @@ export class Balance extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get transactionHash(): Bytes {
+    let value = this.get("transactionHash");
+    return value.toBytes();
+  }
+
+  set transactionHash(value: Bytes) {
+    this.set("transactionHash", Value.fromBytes(value));
+  }
+
   get timestamp(): string {
     let value = this.get("timestamp");
     return value.toString();
