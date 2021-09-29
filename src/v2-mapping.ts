@@ -103,7 +103,7 @@ export function addBalance(
   balance.currentLoot = getLoot(daoAddress);
 
   balance.timestamp = block.timestamp.toString();
-  balance.transactionHash = transaction.hash;
+  balance.transactionHash = transaction.hash.toHex();
   balance.tokenAddress = tokenAddress;
   balance.molochAddress = daoAddress;
   balance.moloch = daoAddress.toHex();
