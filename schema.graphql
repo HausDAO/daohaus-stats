@@ -18,6 +18,7 @@ type Moloch @entity {
 
 type Balance @entity {
   id: ID!
+  transactionHash: String!
   timestamp: String!
   balance: BigInt!
   tokenAddress: Bytes!

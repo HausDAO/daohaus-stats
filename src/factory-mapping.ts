@@ -58,6 +58,7 @@ export function handleRegisterV2(event: RegisterV2): void {
   addBalance(
     event.params.moloch,
     event.block,
+    event.transaction,
     BigInt.fromI32(0),
     depoistToken,
     "initial",
@@ -100,6 +101,7 @@ export function handleSummonV21(event: SummonComplete): void {
   addBalance(
     event.params.moloch,
     event.block,
+    event.transaction,
     BigInt.fromI32(0),
     depoistToken,
     "initial",
