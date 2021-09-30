@@ -42,6 +42,22 @@ const config = {
     v21FactoryAddress: "0x6690C139564144b27ebABA71F9126611a23A31C9",
     v21FactoryStartBlock: 10397177,
   },
+  "arbitrum-one": {
+    v1FactoryAddress: "",
+    v1FactoryStartBlock: "",
+    v2FactoryAddress: "",
+    v2FactoryStartBlock: "",
+    v21FactoryAddress: "0x9232DeA84E91b49feF6b604EEA0455692FC27Ba8",
+    v21FactoryStartBlock: 219866,
+  },
+  celo: {
+    v1FactoryAddress: "",
+    v1FactoryStartBlock: "",
+    v2FactoryAddress: "",
+    v2FactoryStartBlock: "",
+    v21FactoryAddress: "0x8c47bD2ABae16323054a19aA562efC87A6c26d29",
+    v21FactoryStartBlock: 8691191,
+  },
 };
 
 const network = process.argv.slice(2)[0];
@@ -70,7 +86,7 @@ try {
     data.dataSources.splice(3, 1);
   }
 
-  if (network === "matic") {
+  if (network === "matic" || network === "arbitrum-one" || network === "celo") {
     data.dataSources.splice(0, 2);
     data.templates.splice(0, 2);
   }
