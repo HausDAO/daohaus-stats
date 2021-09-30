@@ -1,4 +1,4 @@
-import { BigInt, log, Address, EthereumBlock } from "@graphprotocol/graph-ts";
+import { BigInt, log, Address, EthereumBlock, EthereumTransaction } from "@graphprotocol/graph-ts";
 import {
   V1Moloch as Contract,
   SummonComplete,
@@ -37,6 +37,7 @@ function getShares(daoAddress: Address): BigInt {
 function addBalance(
   daoAddress: Address,
   block: EthereumBlock,
+  transaction: EthereumTransaction,
   direction: string,
   action: string,
   amount: BigInt = BigInt.fromI32(0)
@@ -79,6 +80,7 @@ function addBalance(
   }
 
   balance.timestamp = block.timestamp.toString();
+  balance.transactionHash = transaction.hash.toHex();
   balance.tokenAddress = tokenAddress;
   balance.molochAddress = daoAddress;
   balance.moloch = daoAddress.toHex();
@@ -137,7 +139,7 @@ export function handleSummonComplete(event: SummonComplete): void {
 
   moloch.save();
 
-  addBalance(event.address, event.block, "initial", "summon");
+  addBalance(event.address, event.block, event.transaction, "initial", "summon");
   addSummonBadge(event.params.summoner, event.transaction);
   addMembershipBadge(event.params.summoner);
 }
@@ -181,6 +183,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
     addBalance(
       event.address,
       event.block,
+      event.transaction,
       "tribute",
       "processProposal",
       event.params.tokenTribute
@@ -216,6 +219,7 @@ export function handleRagequit(event: Ragequit): void {
   addBalance(
     event.address,
     event.block,
+    event.transaction,
     "payment",
     "rageQuit",
     event.params.sharesToBurn
