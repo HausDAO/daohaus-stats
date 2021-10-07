@@ -284,6 +284,15 @@ export class Balance extends Entity {
     this.set("molochAddress", Value.fromBytes(value));
   }
 
+  get counterpartyAddress(): string {
+    let value = this.get("counterpartyAddress");
+    return value.toString();
+  }
+
+  set counterpartyAddress(value: string) {
+    this.set("counterpartyAddress", Value.fromString(value));
+  }
+
   get moloch(): string {
     let value = this.get("moloch");
     return value.toString();

@@ -83,6 +83,7 @@ function getLoot(daoAddress: Address): BigInt {
 
 export function addBalance(
   daoAddress: Address,
+  counterpartyAddress: string,
   block: EthereumBlock,
   transaction: EthereumTransaction,
   amount: BigInt,
@@ -106,6 +107,7 @@ export function addBalance(
   balance.transactionHash = transaction.hash.toHex();
   balance.tokenAddress = tokenAddress;
   balance.molochAddress = daoAddress;
+  balance.counterpartyAddress = counterpartyAddress;
   balance.moloch = daoAddress.toHex();
   balance.payment = direction == "payment";
   balance.tribute = direction == "tribute";
@@ -175,6 +177,7 @@ export function handleSummonComplete(event: SummonComplete): void {
   let depoistToken: Address = eventTokens[0];
   addBalance(
     event.address,
+    event.params.summoner.toHex(),
     event.block,
     event.transaction,
     BigInt.fromI32(0),
@@ -230,6 +233,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
     if (proposal.tributeOffered > BigInt.fromI32(0)) {
       addBalance(
         event.address,
+        proposal.applicant.toHex(),
         event.block,
         event.transaction,
         proposal.tributeOffered,
@@ -242,6 +246,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
     if (proposal.paymentRequested > BigInt.fromI32(0)) {
       addBalance(
         event.address,
+        proposal.applicant.toHex(),
         event.block,
         event.transaction,
         proposal.paymentRequested,
@@ -357,6 +362,7 @@ export function handleRagequit(event: Ragequit): void {
 
       addBalance(
         event.address,
+        event.params.memberAddress.toHex(),
         event.block,
         event.transaction,
         amountToRageQuit,
@@ -382,6 +388,7 @@ export function handleWithdraw(event: Withdraw): void {
 export function handleTokensCollected(event: TokensCollected): void {
   addBalance(
     event.address,
+    null,
     event.block,
     event.transaction,
     event.params.amountToCollect,

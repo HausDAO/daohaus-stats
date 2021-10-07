@@ -57,6 +57,7 @@ export function handleRegisterV2(event: RegisterV2): void {
   let depoistToken: Address = eventTokens[0];
   addBalance(
     event.params.moloch,
+    event.params.summoner.toHex(),
     event.block,
     event.transaction,
     BigInt.fromI32(0),
@@ -100,6 +101,7 @@ export function handleSummonV21(event: SummonComplete): void {
   let depoistToken: Address = eventTokens[0];
   addBalance(
     event.params.moloch,
+    moloch.summoner.toHex(),
     event.block,
     event.transaction,
     BigInt.fromI32(0),
