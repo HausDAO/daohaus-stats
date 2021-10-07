@@ -388,7 +388,7 @@ export function handleWithdraw(event: Withdraw): void {
 export function handleTokensCollected(event: TokensCollected): void {
   addBalance(
     event.address,
-    null,
+    "",
     event.block,
     event.transaction,
     event.params.amountToCollect,
