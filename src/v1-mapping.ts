@@ -36,6 +36,7 @@ function getShares(daoAddress: Address): BigInt {
 
 function addBalance(
   daoAddress: Address,
+  counterpartyAddress: string,
   block: EthereumBlock,
   transaction: EthereumTransaction,
   direction: string,
@@ -83,6 +84,7 @@ function addBalance(
   balance.transactionHash = transaction.hash.toHex();
   balance.tokenAddress = tokenAddress;
   balance.molochAddress = daoAddress;
+  balance.counterpartyAddress = counterpartyAddress;
   balance.moloch = daoAddress.toHex();
   balance.payment = direction == "payment";
   balance.tribute = direction == "tribute";
@@ -139,7 +141,7 @@ export function handleSummonComplete(event: SummonComplete): void {
 
   moloch.save();
 
-  addBalance(event.address, event.block, event.transaction, "initial", "summon");
+  addBalance(event.address, event.params.summoner.toHex(), event.block, event.transaction, "initial", "summon");
   addSummonBadge(event.params.summoner, event.transaction);
   addMembershipBadge(event.params.summoner);
 }
@@ -182,6 +184,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
   if (event.params.didPass) {
     addBalance(
       event.address,
+      event.params.applicant.toHex(),
       event.block,
       event.transaction,
       "tribute",
@@ -218,6 +221,7 @@ export function handleRagequit(event: Ragequit): void {
 
   addBalance(
     event.address,
+    event.params.memberAddress.toHex(),
     event.block,
     event.transaction,
     "payment",
