@@ -89,7 +89,8 @@ export function addBalance(
   amount: BigInt,
   tokenAddress: Bytes,
   direction: string,
-  action: string
+  action: string,
+  proposalId: string
 ): void {
   let balanceId = daoAddress
     .toHex()
@@ -102,6 +103,10 @@ export function addBalance(
   balance.balance = getBalance(daoAddress, tokenAddress);
   balance.currentShares = getShares(daoAddress);
   balance.currentLoot = getLoot(daoAddress);
+
+  if (!!proposalId) {
+    balance.proposalDetail = proposalId
+  }
 
   balance.timestamp = block.timestamp.toString();
   balance.transactionHash = transaction.hash.toHex();
@@ -183,7 +188,8 @@ export function handleSummonComplete(event: SummonComplete): void {
     BigInt.fromI32(0),
     depoistToken,
     "initial",
-    "summon"
+    "summon",
+    null
   );
 
   addSummonBadge(event.params.summoner, event.transaction);
@@ -216,6 +222,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.tributeToken = event.params.tributeToken;
   proposal.paymentRequested = event.params.paymentRequested;
   proposal.paymentToken = event.params.paymentToken;
+  proposal.details = event.params.details;
 
   proposal.save();
 
@@ -239,7 +246,8 @@ export function handleProcessProposal(event: ProcessProposal): void {
         proposal.tributeOffered,
         proposal.tributeToken,
         "tribute",
-        "processProposal"
+        "processProposal",
+        proposal.id
       );
     }
 
@@ -252,7 +260,8 @@ export function handleProcessProposal(event: ProcessProposal): void {
         proposal.paymentRequested,
         proposal.paymentToken,
         "payment",
-        "processProposal"
+        "processProposal",
+        proposal.id
       );
     }
   }
@@ -368,7 +377,8 @@ export function handleRagequit(event: Ragequit): void {
         amountToRageQuit,
         token,
         "payment",
-        "rageQuit"
+        "rageQuit",
+        null
       );
     }
   }
@@ -394,7 +404,8 @@ export function handleTokensCollected(event: TokensCollected): void {
     event.params.amountToCollect,
     event.params.token,
     "tribute",
-    "tokensCollected"
+    "tokensCollected",
+    null
   );
 
   let molochId = event.address.toHexString();

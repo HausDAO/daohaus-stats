@@ -35,6 +35,7 @@ type Balance @entity {
   tokenDecimals: BigInt
   currentShares: BigInt!
   currentLoot: BigInt
+  proposalDetail: ProposalDetail
 }
 
 type ProposalDetail @entity {
@@ -48,6 +49,8 @@ type ProposalDetail @entity {
   tributeToken: Bytes!
   paymentRequested: BigInt!
   paymentToken: Bytes!
+  details: String!
+  balance: Balance @derivedFrom(field: "proposalDetail")
 }
 
 type Badge @entity {

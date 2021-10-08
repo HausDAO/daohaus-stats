@@ -63,7 +63,8 @@ export function handleRegisterV2(event: RegisterV2): void {
     BigInt.fromI32(0),
     depoistToken,
     "initial",
-    "summon"
+    "summon",
+    null
   );
 
   addSummonBadge(event.params.summoner, event.transaction);
@@ -107,7 +108,8 @@ export function handleSummonV21(event: SummonComplete): void {
     BigInt.fromI32(0),
     depoistToken,
     "initial",
-    "summon"
+    "summon",
+    null
   );
 
   for (let i = 0; i < eventSummoners.length; i++) {
