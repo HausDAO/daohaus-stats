@@ -83,12 +83,14 @@ function getLoot(daoAddress: Address): BigInt {
 
 export function addBalance(
   daoAddress: Address,
+  counterpartyAddress: string,
   block: EthereumBlock,
   transaction: EthereumTransaction,
   amount: BigInt,
   tokenAddress: Bytes,
   direction: string,
-  action: string
+  action: string,
+  proposalId: string
 ): void {
   let balanceId = daoAddress
     .toHex()
@@ -102,10 +104,15 @@ export function addBalance(
   balance.currentShares = getShares(daoAddress);
   balance.currentLoot = getLoot(daoAddress);
 
+  if (!!proposalId) {
+    balance.proposalDetail = proposalId
+  }
+
   balance.timestamp = block.timestamp.toString();
   balance.transactionHash = transaction.hash.toHex();
   balance.tokenAddress = tokenAddress;
   balance.molochAddress = daoAddress;
+  balance.counterpartyAddress = counterpartyAddress;
   balance.moloch = daoAddress.toHex();
   balance.payment = direction == "payment";
   balance.tribute = direction == "tribute";
@@ -175,12 +182,14 @@ export function handleSummonComplete(event: SummonComplete): void {
   let depoistToken: Address = eventTokens[0];
   addBalance(
     event.address,
+    event.params.summoner.toHex(),
     event.block,
     event.transaction,
     BigInt.fromI32(0),
     depoistToken,
     "initial",
-    "summon"
+    "summon",
+    null
   );
 
   addSummonBadge(event.params.summoner, event.transaction);
@@ -213,6 +222,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.tributeToken = event.params.tributeToken;
   proposal.paymentRequested = event.params.paymentRequested;
   proposal.paymentToken = event.params.paymentToken;
+  proposal.details = event.params.details;
 
   proposal.save();
 
@@ -230,24 +240,28 @@ export function handleProcessProposal(event: ProcessProposal): void {
     if (proposal.tributeOffered > BigInt.fromI32(0)) {
       addBalance(
         event.address,
+        proposal.applicant.toHex(),
         event.block,
         event.transaction,
         proposal.tributeOffered,
         proposal.tributeToken,
         "tribute",
-        "processProposal"
+        "processProposal",
+        proposal.id
       );
     }
 
     if (proposal.paymentRequested > BigInt.fromI32(0)) {
       addBalance(
         event.address,
+        proposal.applicant.toHex(),
         event.block,
         event.transaction,
         proposal.paymentRequested,
         proposal.paymentToken,
         "payment",
-        "processProposal"
+        "processProposal",
+        proposal.id
       );
     }
   }
@@ -357,12 +371,14 @@ export function handleRagequit(event: Ragequit): void {
 
       addBalance(
         event.address,
+        event.params.memberAddress.toHex(),
         event.block,
         event.transaction,
         amountToRageQuit,
         token,
         "payment",
-        "rageQuit"
+        "rageQuit",
+        null
       );
     }
   }
@@ -382,12 +398,14 @@ export function handleWithdraw(event: Withdraw): void {
 export function handleTokensCollected(event: TokensCollected): void {
   addBalance(
     event.address,
+    "",
     event.block,
     event.transaction,
     event.params.amountToCollect,
     event.params.token,
     "tribute",
-    "tokensCollected"
+    "tokensCollected",
+    null
   );
 
   let molochId = event.address.toHexString();
