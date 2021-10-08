@@ -423,6 +423,23 @@ export class Balance extends Entity {
       this.set("currentLoot", Value.fromBigInt(value as BigInt));
     }
   }
+
+  get proposalDetail(): string | null {
+    let value = this.get("proposalDetail");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set proposalDetail(value: string | null) {
+    if (value === null) {
+      this.unset("proposalDetail");
+    } else {
+      this.set("proposalDetail", Value.fromString(value as string));
+    }
+  }
 }
 
 export class ProposalDetail extends Entity {
@@ -534,6 +551,32 @@ export class ProposalDetail extends Entity {
 
   set paymentToken(value: Bytes) {
     this.set("paymentToken", Value.fromBytes(value));
+  }
+
+  get details(): string {
+    let value = this.get("details");
+    return value.toString();
+  }
+
+  set details(value: string) {
+    this.set("details", Value.fromString(value));
+  }
+
+  get balance(): string | null {
+    let value = this.get("balance");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set balance(value: string | null) {
+    if (value === null) {
+      this.unset("balance");
+    } else {
+      this.set("balance", Value.fromString(value as string));
+    }
   }
 }
 
