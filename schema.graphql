@@ -23,6 +23,7 @@ type Balance @entity {
   balance: BigInt!
   tokenAddress: Bytes!
   molochAddress: Bytes!
+  counterpartyAddress: String!
   moloch: Moloch!
   payment: Boolean!
   tribute: Boolean!
