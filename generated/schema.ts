@@ -517,6 +517,78 @@ export class ProposalDetail extends Entity {
     this.set("applicant", Value.fromBytes(value));
   }
 
+  get memberAddress(): Bytes {
+    let value = this.get("memberAddress");
+    return value.toBytes();
+  }
+
+  set memberAddress(value: Bytes) {
+    this.set("memberAddress", Value.fromBytes(value));
+  }
+
+  get delegateKey(): Bytes {
+    let value = this.get("delegateKey");
+    return value.toBytes();
+  }
+
+  set delegateKey(value: Bytes) {
+    this.set("delegateKey", Value.fromBytes(value));
+  }
+
+  get isSponsored(): boolean {
+    let value = this.get("isSponsored");
+    return value.toBoolean();
+  }
+
+  set isSponsored(value: boolean) {
+    this.set("isSponsored", Value.fromBoolean(value));
+  }
+
+  get isProcessed(): boolean {
+    let value = this.get("isProcessed");
+    return value.toBoolean();
+  }
+
+  set isProcessed(value: boolean) {
+    this.set("isProcessed", Value.fromBoolean(value));
+  }
+
+  get didPass(): boolean {
+    let value = this.get("didPass");
+    return value.toBoolean();
+  }
+
+  set didPass(value: boolean) {
+    this.set("didPass", Value.fromBoolean(value));
+  }
+
+  get isCancelled(): boolean {
+    let value = this.get("isCancelled");
+    return value.toBoolean();
+  }
+
+  set isCancelled(value: boolean) {
+    this.set("isCancelled", Value.fromBoolean(value));
+  }
+
+  get isWhitelisted(): boolean {
+    let value = this.get("isWhitelisted");
+    return value.toBoolean();
+  }
+
+  set isWhitelisted(value: boolean) {
+    this.set("isWhitelisted", Value.fromBoolean(value));
+  }
+
+  get isGuildkicked(): boolean {
+    let value = this.get("isGuildkicked");
+    return value.toBoolean();
+  }
+
+  set isGuildkicked(value: boolean) {
+    this.set("isGuildkicked", Value.fromBoolean(value));
+  }
+
   get tributeOffered(): BigInt {
     let value = this.get("tributeOffered");
     return value.toBigInt();

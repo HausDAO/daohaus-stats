@@ -218,11 +218,21 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.molochAddress = event.address;
   proposal.createdAt = event.block.timestamp.toString();
   proposal.applicant = event.params.applicant;
+  proposal.memberAddress = event.params.memberAddress;
+  proposal.delegateKey = event.params.delegateKey;
   proposal.tributeOffered = event.params.tributeOffered;
   proposal.tributeToken = event.params.tributeToken;
   proposal.paymentRequested = event.params.paymentRequested;
   proposal.paymentToken = event.params.paymentToken;
   proposal.details = event.params.details;
+
+  let flags = event.params.flags;
+  proposal.isSponsored = flags[0];
+  proposal.isProcessed = flags[1];
+  proposal.didPass = flags[2];
+  proposal.isCancelled = flags[3];
+  proposal.isWhitelisted = flags[4];
+  proposal.isGuildkicked = flags[5];
 
   proposal.save();
 
