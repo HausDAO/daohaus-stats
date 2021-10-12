@@ -21,7 +21,8 @@
     "deploy:kovan": "yarn prepare:kovan && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-kovan",
     "deploy:rinkeby": "yarn prepare:rinkeby && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-rinkeby",
     "deploy:arbitrum": "yarn prepare:kovan && yarn build:all && yarn prepare:arbitrum && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-arbitrum",
-    "deploy:celo": "yarn prepare:kovan && yarn build:all && yarn prepare:celo && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-celo"
+    "deploy:celo": "yarn prepare:kovan && yarn build:all && yarn prepare:celo && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-celo",
+    "deploy:all": "yarn deploy:mainnet && yarn deploy:xdai && yarn deploy:matic && yarn deploy:kovan && yarn deploy:rinkeby && yarn deploy:arbitrum && yarn deploy:celo"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.17.1",
