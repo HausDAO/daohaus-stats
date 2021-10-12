@@ -440,6 +440,107 @@ export class Balance extends Entity {
       this.set("proposalDetail", Value.fromString(value as string));
     }
   }
+
+  get rageQuit(): string | null {
+    let value = this.get("rageQuit");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set rageQuit(value: string | null) {
+    if (value === null) {
+      this.unset("rageQuit");
+    } else {
+      this.set("rageQuit", Value.fromString(value as string));
+    }
+  }
+}
+
+export class RageQuit extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save RageQuit entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save RageQuit entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("RageQuit", id.toString(), this);
+  }
+
+  static load(id: string): RageQuit | null {
+    return store.get("RageQuit", id) as RageQuit | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get createdAt(): string {
+    let value = this.get("createdAt");
+    return value.toString();
+  }
+
+  set createdAt(value: string) {
+    this.set("createdAt", Value.fromString(value));
+  }
+
+  get memberAddress(): Bytes {
+    let value = this.get("memberAddress");
+    return value.toBytes();
+  }
+
+  set memberAddress(value: Bytes) {
+    this.set("memberAddress", Value.fromBytes(value));
+  }
+
+  get shares(): BigInt {
+    let value = this.get("shares");
+    return value.toBigInt();
+  }
+
+  set shares(value: BigInt) {
+    this.set("shares", Value.fromBigInt(value));
+  }
+
+  get loot(): BigInt {
+    let value = this.get("loot");
+    return value.toBigInt();
+  }
+
+  set loot(value: BigInt) {
+    this.set("loot", Value.fromBigInt(value));
+  }
+
+  get balance(): string | null {
+    let value = this.get("balance");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set balance(value: string | null) {
+    if (value === null) {
+      this.unset("balance");
+    } else {
+      this.set("balance", Value.fromString(value as string));
+    }
+  }
 }
 
 export class ProposalDetail extends Entity {

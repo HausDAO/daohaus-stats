@@ -5,6 +5,7 @@ import {
   Bytes,
   EthereumBlock,
   EthereumTransaction,
+  ByteArray
 } from "@graphprotocol/graph-ts";
 import {
   V2Moloch as Contract,
@@ -21,7 +22,7 @@ import {
 } from "../generated/templates/MolochV2Template/V2Moloch";
 import { Erc20 } from "../generated/templates/MolochV2Template/Erc20";
 import { Erc20Bytes32 } from "../generated/templates/MolochV2Template/Erc20Bytes32";
-import { Moloch, Balance, ProposalDetail, DaoMeta } from "../generated/schema";
+import { Moloch, Balance, RageQuit, ProposalDetail, DaoMeta } from "../generated/schema";
 import {
   addVotedBadge,
   addSummonBadge,
@@ -91,7 +92,7 @@ export function addBalance(
   direction: string,
   action: string,
   proposalId: string
-): void {
+): Balance {
   let balanceId = daoAddress
     .toHex()
     .concat("-")
@@ -127,6 +128,8 @@ export function addBalance(
     balance.amount.toString(),
     action,
   ]);
+
+  return balance;
 }
 
 export function getTokenSymbol(token: Bytes): string {
@@ -362,6 +365,20 @@ export function handleRagequit(event: Ragequit): void {
 
   let tokenCount = contract.getTokenCount();
 
+  let targetAddress = event.params.memberAddress.toHex();
+
+  let rageQuitId = "rage"
+    .concat("-")
+    .concat(event.block.number.toString());
+
+  let rageQuit = new RageQuit(rageQuitId);
+  rageQuit.createdAt = event.block.timestamp.toString();
+  rageQuit.memberAddress = ByteArray.fromHexString(targetAddress) as Address;
+  rageQuit.shares = event.params.sharesToBurn;
+  rageQuit.loot = event.params.lootToBurn;
+
+  rageQuit.save();
+
   // for (
   //   let i = BigInt.fromI32(0);
   //   i < tokenCount;
@@ -379,9 +396,9 @@ export function handleRagequit(event: Ragequit): void {
       let balanceTimesBurn = tokenBalance.times(sharesAndLootToBurn);
       let amountToRageQuit = balanceTimesBurn.div(initialTotalSharesAndLoot);
 
-      addBalance(
+      let newBalance = addBalance(
         event.address,
-        event.params.memberAddress.toHex(),
+        targetAddress,
         event.block,
         event.transaction,
         amountToRageQuit,
@@ -390,6 +407,9 @@ export function handleRagequit(event: Ragequit): void {
         "rageQuit",
         null
       );
+
+      rageQuit.balance = newBalance.id;
+      rageQuit.save();
     }
   }
 

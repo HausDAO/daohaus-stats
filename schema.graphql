@@ -36,6 +36,16 @@ type Balance @entity {
   currentShares: BigInt!
   currentLoot: BigInt
   proposalDetail: ProposalDetail
+  rageQuit: RageQuit @derivedFrom(field: "balance")
+}
+
+type RageQuit @entity {
+  id: ID!
+  createdAt: String!
+  memberAddress: Bytes!
+  shares: BigInt!
+  loot: BigInt!
+  balance: Balance
 }
 
 type ProposalDetail @entity {
