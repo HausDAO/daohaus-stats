@@ -91,7 +91,6 @@ export function addBalance(
   tokenAddress: Bytes,
   direction: string,
   action: string,
-  proposalId: string
 ): Balance {
   let balanceId = daoAddress
     .toHex()
@@ -104,10 +103,6 @@ export function addBalance(
   balance.balance = getBalance(daoAddress, tokenAddress);
   balance.currentShares = getShares(daoAddress);
   balance.currentLoot = getLoot(daoAddress);
-
-  if (!!proposalId) {
-    balance.proposalDetail = proposalId
-  }
 
   balance.timestamp = block.timestamp.toString();
   balance.transactionHash = transaction.hash.toHex();
@@ -192,7 +187,6 @@ export function handleSummonComplete(event: SummonComplete): void {
     depoistToken,
     "initial",
     "summon",
-    null
   );
 
   addSummonBadge(event.params.summoner, event.transaction);
@@ -251,7 +245,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
 
   if (event.params.didPass) {
     if (proposal.tributeOffered > BigInt.fromI32(0)) {
-      addBalance(
+      let newBalance = addBalance(
         event.address,
         proposal.applicant.toHex(),
         event.block,
@@ -260,12 +254,14 @@ export function handleProcessProposal(event: ProcessProposal): void {
         proposal.tributeToken,
         "tribute",
         "processProposal",
-        proposal.id
       );
+
+      proposal.balance = newBalance.id;
+      proposal.save();
     }
 
     if (proposal.paymentRequested > BigInt.fromI32(0)) {
-      addBalance(
+      let newBalance = addBalance(
         event.address,
         proposal.applicant.toHex(),
         event.block,
@@ -274,8 +270,10 @@ export function handleProcessProposal(event: ProcessProposal): void {
         proposal.paymentToken,
         "payment",
         "processProposal",
-        proposal.id
       );
+
+      proposal.balance = newBalance.id;
+      proposal.save();
     }
   }
 
@@ -405,7 +403,6 @@ export function handleRagequit(event: Ragequit): void {
         token,
         "payment",
         "rageQuit",
-        null
       );
 
       rageQuit.balance = newBalance.id;
@@ -435,7 +432,6 @@ export function handleTokensCollected(event: TokensCollected): void {
     event.params.token,
     "tribute",
     "tokensCollected",
-    null
   );
 
   let molochId = event.address.toHexString();
