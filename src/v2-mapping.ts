@@ -215,7 +215,6 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.molochAddress = event.address;
   proposal.createdAt = event.block.timestamp.toString();
   proposal.applicant = event.params.applicant;
-  proposal.memberAddress = event.params.memberAddress;
   proposal.delegateKey = event.params.delegateKey;
   proposal.tributeOffered = event.params.tributeOffered;
   proposal.tributeToken = event.params.tributeToken;
@@ -224,6 +223,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.details = event.params.details;
   proposal.sharesRequested = event.params.sharesRequested
   proposal.lootRequested = event.params.lootRequested
+  proposal.createdBy = event.transaction.from
 
   let flags = event.params.flags;
   proposal.isSponsored = flags[0];

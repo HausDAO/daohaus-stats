@@ -618,13 +618,13 @@ export class ProposalDetail extends Entity {
     this.set("applicant", Value.fromBytes(value));
   }
 
-  get memberAddress(): Bytes {
-    let value = this.get("memberAddress");
+  get createdBy(): Bytes {
+    let value = this.get("createdBy");
     return value.toBytes();
   }
 
-  set memberAddress(value: Bytes) {
-    this.set("memberAddress", Value.fromBytes(value));
+  set createdBy(value: Bytes) {
+    this.set("createdBy", Value.fromBytes(value));
   }
 
   get delegateKey(): Bytes {
