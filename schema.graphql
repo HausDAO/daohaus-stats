@@ -35,7 +35,17 @@ type Balance @entity {
   tokenDecimals: BigInt
   currentShares: BigInt!
   currentLoot: BigInt
-  proposalDetail: ProposalDetail
+  proposalDetail: ProposalDetail @derivedFrom(field: "balance")
+  rageQuit: RageQuit @derivedFrom(field: "balance")
+}
+
+type RageQuit @entity {
+  id: ID!
+  createdAt: String!
+  memberAddress: Bytes!
+  shares: BigInt!
+  loot: BigInt!
+  balance: Balance
 }
 
 type ProposalDetail @entity {
@@ -45,12 +55,22 @@ type ProposalDetail @entity {
   moloch: Moloch!
   molochAddress: Bytes!
   applicant: Bytes!
+  createdBy: Bytes!
+  delegateKey: Bytes!
+  isSponsored: Boolean
+  isProcessed: Boolean
+  didPass: Boolean
+  isCancelled: Boolean
+  isWhitelisted: Boolean
+  isGuildkicked: Boolean
   tributeOffered: BigInt!
   tributeToken: Bytes!
   paymentRequested: BigInt!
+  sharesRequested: BigInt!
+  lootRequested: BigInt!
   paymentToken: Bytes!
   details: String!
-  balance: Balance @derivedFrom(field: "proposalDetail")
+  balance: Balance
 }
 
 type Badge @entity {

@@ -5,6 +5,7 @@ import {
   Bytes,
   EthereumBlock,
   EthereumTransaction,
+  ByteArray
 } from "@graphprotocol/graph-ts";
 import {
   V2Moloch as Contract,
@@ -21,7 +22,7 @@ import {
 } from "../generated/templates/MolochV2Template/V2Moloch";
 import { Erc20 } from "../generated/templates/MolochV2Template/Erc20";
 import { Erc20Bytes32 } from "../generated/templates/MolochV2Template/Erc20Bytes32";
-import { Moloch, Balance, ProposalDetail, DaoMeta } from "../generated/schema";
+import { Moloch, Balance, RageQuit, ProposalDetail, DaoMeta } from "../generated/schema";
 import {
   addVotedBadge,
   addSummonBadge,
@@ -90,8 +91,7 @@ export function addBalance(
   tokenAddress: Bytes,
   direction: string,
   action: string,
-  proposalId: string
-): void {
+): Balance {
   let balanceId = daoAddress
     .toHex()
     .concat("-")
@@ -103,10 +103,6 @@ export function addBalance(
   balance.balance = getBalance(daoAddress, tokenAddress);
   balance.currentShares = getShares(daoAddress);
   balance.currentLoot = getLoot(daoAddress);
-
-  if (!!proposalId) {
-    balance.proposalDetail = proposalId
-  }
 
   balance.timestamp = block.timestamp.toString();
   balance.transactionHash = transaction.hash.toHex();
@@ -127,6 +123,8 @@ export function addBalance(
     balance.amount.toString(),
     action,
   ]);
+
+  return balance;
 }
 
 export function getTokenSymbol(token: Bytes): string {
@@ -189,7 +187,6 @@ export function handleSummonComplete(event: SummonComplete): void {
     depoistToken,
     "initial",
     "summon",
-    null
   );
 
   addSummonBadge(event.params.summoner, event.transaction);
@@ -218,11 +215,23 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.molochAddress = event.address;
   proposal.createdAt = event.block.timestamp.toString();
   proposal.applicant = event.params.applicant;
+  proposal.delegateKey = event.params.delegateKey;
   proposal.tributeOffered = event.params.tributeOffered;
   proposal.tributeToken = event.params.tributeToken;
   proposal.paymentRequested = event.params.paymentRequested;
   proposal.paymentToken = event.params.paymentToken;
   proposal.details = event.params.details;
+  proposal.sharesRequested = event.params.sharesRequested
+  proposal.lootRequested = event.params.lootRequested
+  proposal.createdBy = event.transaction.from
+
+  let flags = event.params.flags;
+  proposal.isSponsored = flags[0];
+  proposal.isProcessed = flags[1];
+  proposal.didPass = flags[2];
+  proposal.isCancelled = flags[3];
+  proposal.isWhitelisted = flags[4];
+  proposal.isGuildkicked = flags[5];
 
   proposal.save();
 
@@ -238,7 +247,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
 
   if (event.params.didPass) {
     if (proposal.tributeOffered > BigInt.fromI32(0)) {
-      addBalance(
+      let newBalance = addBalance(
         event.address,
         proposal.applicant.toHex(),
         event.block,
@@ -247,12 +256,14 @@ export function handleProcessProposal(event: ProcessProposal): void {
         proposal.tributeToken,
         "tribute",
         "processProposal",
-        proposal.id
       );
+
+      proposal.balance = newBalance.id;
+      proposal.save();
     }
 
     if (proposal.paymentRequested > BigInt.fromI32(0)) {
-      addBalance(
+      let newBalance = addBalance(
         event.address,
         proposal.applicant.toHex(),
         event.block,
@@ -261,8 +272,10 @@ export function handleProcessProposal(event: ProcessProposal): void {
         proposal.paymentToken,
         "payment",
         "processProposal",
-        proposal.id
       );
+
+      proposal.balance = newBalance.id;
+      proposal.save();
     }
   }
 
@@ -352,6 +365,20 @@ export function handleRagequit(event: Ragequit): void {
 
   let tokenCount = contract.getTokenCount();
 
+  let targetAddress = event.params.memberAddress.toHex();
+
+  let rageQuitId = "rage"
+    .concat("-")
+    .concat(event.block.number.toString());
+
+  let rageQuit = new RageQuit(rageQuitId);
+  rageQuit.createdAt = event.block.timestamp.toString();
+  rageQuit.memberAddress = ByteArray.fromHexString(targetAddress) as Address;
+  rageQuit.shares = event.params.sharesToBurn;
+  rageQuit.loot = event.params.lootToBurn;
+
+  rageQuit.save();
+
   // for (
   //   let i = BigInt.fromI32(0);
   //   i < tokenCount;
@@ -369,17 +396,19 @@ export function handleRagequit(event: Ragequit): void {
       let balanceTimesBurn = tokenBalance.times(sharesAndLootToBurn);
       let amountToRageQuit = balanceTimesBurn.div(initialTotalSharesAndLoot);
 
-      addBalance(
+      let newBalance = addBalance(
         event.address,
-        event.params.memberAddress.toHex(),
+        targetAddress,
         event.block,
         event.transaction,
         amountToRageQuit,
         token,
         "payment",
         "rageQuit",
-        null
       );
+
+      rageQuit.balance = newBalance.id;
+      rageQuit.save();
     }
   }
 
@@ -405,7 +434,6 @@ export function handleTokensCollected(event: TokensCollected): void {
     event.params.token,
     "tribute",
     "tokensCollected",
-    null
   );
 
   let molochId = event.address.toHexString();
