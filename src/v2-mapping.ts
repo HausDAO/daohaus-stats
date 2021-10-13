@@ -222,6 +222,8 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.paymentRequested = event.params.paymentRequested;
   proposal.paymentToken = event.params.paymentToken;
   proposal.details = event.params.details;
+  proposal.sharesRequested = event.params.sharesRequested
+  proposal.lootRequested = event.params.lootRequested
 
   let flags = event.params.flags;
   proposal.isSponsored = flags[0];

@@ -66,6 +66,8 @@ type ProposalDetail @entity {
   tributeOffered: BigInt!
   tributeToken: Bytes!
   paymentRequested: BigInt!
+  sharesRequested: BigInt!
+  lootRequested: BigInt!
   paymentToken: Bytes!
   details: String!
   balance: Balance

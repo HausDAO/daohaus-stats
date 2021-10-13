@@ -717,6 +717,24 @@ export class ProposalDetail extends Entity {
     this.set("paymentRequested", Value.fromBigInt(value));
   }
 
+  get sharesRequested(): BigInt {
+    let value = this.get("sharesRequested");
+    return value.toBigInt();
+  }
+
+  set sharesRequested(value: BigInt) {
+    this.set("sharesRequested", Value.fromBigInt(value));
+  }
+
+  get lootRequested(): BigInt {
+    let value = this.get("lootRequested");
+    return value.toBigInt();
+  }
+
+  set lootRequested(value: BigInt) {
+    this.set("lootRequested", Value.fromBigInt(value));
+  }
+
   get paymentToken(): Bytes {
     let value = this.get("paymentToken");
     return value.toBytes();
