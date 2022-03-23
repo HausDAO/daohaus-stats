@@ -50,6 +50,14 @@ const config = {
     v21FactoryAddress: "0x9232DeA84E91b49feF6b604EEA0455692FC27Ba8",
     v21FactoryStartBlock: 219866,
   },
+  "optimism": {
+    v1FactoryAddress: "",
+    v1FactoryStartBlock: "",
+    v2FactoryAddress: "",
+    v2FactoryStartBlock: "",
+    v21FactoryAddress: "", // TODO fill this in
+    v21FactoryStartBlock: 0, // TODO fill this in
+  },
   celo: {
     v1FactoryAddress: "",
     v1FactoryStartBlock: "",
@@ -86,6 +94,7 @@ try {
     data.dataSources.splice(3, 1);
   }
 
+  // TODO potentially something here
   if (network === "matic" || network === "arbitrum-one" || network === "celo") {
     data.dataSources.splice(0, 2);
     data.templates.splice(0, 2);
