@@ -56,15 +56,15 @@ const config = {
     v2FactoryAddress: "",
     v2FactoryStartBlock: "",
     v21FactoryAddress: "0xf89f79A0E5aF89BFa5c4d4FC6F7fD25700bC4905",
-    v21FactoryStartBlock: 30606471, // TODO Is this right?
+    v21FactoryStartBlock: 1710095, // TODO check pr desription to confirm this is correct
   },
   "optimism": {
     v1FactoryAddress: "",
     v1FactoryStartBlock: "",
     v2FactoryAddress: "",
     v2FactoryStartBlock: "",
-    v21FactoryAddress: "", // TODO fill this in
-    v21FactoryStartBlock: 0, // TODO fill this in
+    v21FactoryAddress: "0x032865ACfc05E769902Fe90Bcc9d511875a74E66",
+    v21FactoryStartBlock: 4864699, // TODO check pr desription to confirm this is correct
   },
   celo: {
     v1FactoryAddress: "",
