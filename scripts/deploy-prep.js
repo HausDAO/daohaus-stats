@@ -50,6 +50,14 @@ const config = {
     v21FactoryAddress: "0x9232DeA84E91b49feF6b604EEA0455692FC27Ba8",
     v21FactoryStartBlock: 219866,
   },
+  "kovan-optimism": {
+    v1FactoryAddress: "",
+    v1FactoryStartBlock: "",
+    v2FactoryAddress: "",
+    v2FactoryStartBlock: "",
+    v21FactoryAddress: "0xf89f79A0E5aF89BFa5c4d4FC6F7fD25700bC4905",
+    v21FactoryStartBlock: 30606471, // TODO Is this right?
+  },
   "optimism": {
     v1FactoryAddress: "",
     v1FactoryStartBlock: "",
