@@ -50,6 +50,22 @@ const config = {
     v21FactoryAddress: "0x9232DeA84E91b49feF6b604EEA0455692FC27Ba8",
     v21FactoryStartBlock: 219866,
   },
+  "kovan-optimism": {
+    v1FactoryAddress: "",
+    v1FactoryStartBlock: "",
+    v2FactoryAddress: "",
+    v2FactoryStartBlock: "",
+    v21FactoryAddress: "0x72B8Bf40C8B316753a3E470689DA625759D2b025",
+    v21FactoryStartBlock: 1710095, // TODO check pr desription to confirm this is correct
+  },
+  "optimism": {
+    v1FactoryAddress: "",
+    v1FactoryStartBlock: "",
+    v2FactoryAddress: "",
+    v2FactoryStartBlock: "",
+    v21FactoryAddress: "0x032865ACfc05E769902Fe90Bcc9d511875a74E66",
+    v21FactoryStartBlock: 4864699, // TODO check pr desription to confirm this is correct
+  },
   celo: {
     v1FactoryAddress: "",
     v1FactoryStartBlock: "",
@@ -86,6 +102,7 @@ try {
     data.dataSources.splice(3, 1);
   }
 
+  // TODO potentially something here
   if (network === "matic" || network === "arbitrum-one" || network === "celo") {
     data.dataSources.splice(0, 2);
     data.templates.splice(0, 2);

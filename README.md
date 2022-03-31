@@ -4,32 +4,36 @@ Caching dao analytic data for all moloch daos summoned on daohaus.club.
 
 ## Endpoints
 
-https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats
+[daohaus-stats](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats)
 
-https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-kovan
+[daohaus-stats-kovan](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-kovan)
 
-https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-rinkeby
+[daohaus-stats-rinkeby](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-rinkeby)
 
-https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-xdai
+[daohaus-stats-xdai](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-xdai)
 
-http://35.224.233.211/subgraphs/name/matic/daohaus
+[daohaus-stats-arbitrum](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-arbitrum)
+
+[daohaus-stats-matic](http://35.224.233.211/subgraphs/name/matic/daohaus)
 
 ## Graph explorers
 
-https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats
+[daohaus-stats](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats)
 
-https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-kovan
+[daohaus-stats-kovan](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-kovan)
 
-https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-rinkeby
+[daohaus-stats-rinkeby](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-rinkeby)
 
-https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-xdai
+[daohaus-stats-xdai](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-xdai)
 
-http://35.224.233.211/subgraphs/name/matic/daohaus/graphql
+[daohaus-stats-arbitrum](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-arbitrum)
+
+[daohaus-stats-matic](http://35.224.233.211/subgraphs/name/matic/daohaus/graphql)
 
 
 ### License
 
-The DAOhaus subgraphs are for querying data for Moloch DAOs built on the Moloch DAO framework smart contracts <https://github.com/MolochVentures/moloch>. 
+The DAOhaus subgraphs are for querying data for Moloch DAOs built on the Moloch DAO framework smart contracts <https://github.com/MolochVentures/moloch>.
 
 Copyright (C) 2021 DAOhaus
 
