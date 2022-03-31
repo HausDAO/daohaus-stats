@@ -58,7 +58,7 @@ const config = {
     v21FactoryAddress: "0x72B8Bf40C8B316753a3E470689DA625759D2b025",
     v21FactoryStartBlock: 1710095, // TODO check pr desription to confirm this is correct
   },
-  "optimism": {
+  optimism: {
     v1FactoryAddress: "",
     v1FactoryStartBlock: "",
     v2FactoryAddress: "",
@@ -103,7 +103,13 @@ try {
   }
 
   // TODO potentially something here
-  if (network === "matic" || network === "arbitrum-one" || network === "celo") {
+  if (
+    network === "matic" ||
+    network === "arbitrum-one" ||
+    network === "celo" ||
+    network === "optimism" ||
+    network === "kovan-optimism"
+  ) {
     data.dataSources.splice(0, 2);
     data.templates.splice(0, 2);
   }

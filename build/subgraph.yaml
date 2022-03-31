@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: V21Factory
-    network: celo
+    network: optimism
     source:
-      address: "0x8c47bD2ABae16323054a19aA562efC87A6c26d29"
+      address: "0x032865ACfc05E769902Fe90Bcc9d511875a74E66"
       abi: V21Factory
-      startBlock: 8691191
+      startBlock: 4864699
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
@@ -34,7 +34,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: MolochV21Template
-    network: celo
+    network: optimism
     source:
       abi: V21Moloch
     mapping:
