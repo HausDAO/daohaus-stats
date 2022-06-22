@@ -16,6 +16,7 @@
     "prepare:arbitrum": "node scripts/deploy-prep.js arbitrum-one",
     "prepare:optimism": "node scripts/deploy-prep.js optimism",
     "prepare:celo": "node scripts/deploy-prep.js celo",
+    "prepare:goerli": "node scripts/deploy-prep.js goerli",
     "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats",
     "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-xdai",
     "deploy:matic": "yarn prepare:kovan && yarn build:all && yarn prepare:matic && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-matic",
@@ -24,7 +25,8 @@
     "deploy:arbitrum": "yarn prepare:kovan && yarn build:all && yarn prepare:arbitrum && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-arbitrum",
     "deploy:optimism": "yarn prepare:kovan && yarn build:all && yarn prepare:optimism && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-optimism",
     "deploy:celo": "yarn prepare:kovan && yarn build:all && yarn prepare:celo && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-celo",
-    "deploy:all": "yarn deploy:mainnet && yarn deploy:xdai && yarn deploy:matic && yarn deploy:kovan && yarn deploy:rinkeby && yarn deploy:arbitrum && yarn deploy:celo && yarn deploy:optimism"
+    "deploy:goerli": "yarn prepare:kovan && yarn build:all && yarn prepare:goerli && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-stats-goerli",
+    "deploy:all": "yarn deploy:mainnet && yarn deploy:xdai && yarn deploy:matic && yarn deploy:kovan && yarn deploy:rinkeby && yarn deploy:arbitrum && yarn deploy:celo && yarn deploy:optimism && yarn deploy:goerli"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.17.1",
