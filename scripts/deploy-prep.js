@@ -64,14 +64,6 @@ const config = {
     v21FactoryAddress: "0x9232DeA84E91b49feF6b604EEA0455692FC27Ba8",
     v21FactoryStartBlock: 219866,
   },
-  "kovan-optimism": {
-    v1FactoryAddress: "",
-    v1FactoryStartBlock: "",
-    v2FactoryAddress: "",
-    v2FactoryStartBlock: "",
-    v21FactoryAddress: "0x72B8Bf40C8B316753a3E470689DA625759D2b025",
-    v21FactoryStartBlock: 1710095,
-  },
   optimism: {
     v1FactoryAddress: "",
     v1FactoryStartBlock: "",
@@ -127,7 +119,8 @@ try {
     network === "matic" ||
     network === "arbitrum-one" ||
     network === "celo" ||
-    network === "optimism"
+    network === "optimism" ||
+    network === "goerli"
   ) {
     data.dataSources.splice(0, 2);
     data.dataSources.splice(1, 1);
