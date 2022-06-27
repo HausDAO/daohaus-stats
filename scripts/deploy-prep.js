@@ -20,6 +20,14 @@ const config = {
     v22FactoryAddress: "0xa24012Bcfc53b3C5c448726d99B68044cdADD77A",
     v22FactoryStartBlock: 9901589,
   },
+  goerli: {
+    v1FactoryAddress: "",
+    v1FactoryStartBlock: "",
+    v2FactoryAddress: "",
+    v2FactoryStartBlock: "",
+    v21FactoryAddress: "0x72B8Bf40C8B316753a3E470689DA625759D2b025",
+    v21FactoryStartBlock: 7103207,
+  },
   xdai: {
     v1FactoryAddress: "0x9232DeA84E91b49feF6b604EEA0455692FC27Ba8",
     v1FactoryStartBlock: 10733005,
@@ -62,7 +70,7 @@ const config = {
     v2FactoryAddress: "",
     v2FactoryStartBlock: "",
     v21FactoryAddress: "0x72B8Bf40C8B316753a3E470689DA625759D2b025",
-    v21FactoryStartBlock: 1710095, // TODO check pr desription to confirm this is correct
+    v21FactoryStartBlock: 1710095,
   },
   optimism: {
     v1FactoryAddress: "",
@@ -70,7 +78,7 @@ const config = {
     v2FactoryAddress: "",
     v2FactoryStartBlock: "",
     v21FactoryAddress: "0x032865ACfc05E769902Fe90Bcc9d511875a74E66",
-    v21FactoryStartBlock: 4864699, // TODO check pr desription to confirm this is correct
+    v21FactoryStartBlock: 4864699,
   },
   celo: {
     v1FactoryAddress: "",
