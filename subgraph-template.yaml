@@ -2,7 +2,7 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum/contract
+  - kind: ethereum/contract #v1Factory
     name: V1Factory
     network: kovan
     # network: mainnet
@@ -27,7 +27,7 @@ dataSources:
         - event: "Register(address,indexed address,uint256,string,uint256)"
           handler: handleRegisterV1
       file: ./src/factory-mapping.ts
-  - kind: ethereum/contract
+  - kind: ethereum/contract #v2Factory
     name: V2Factory
     network: kovan
     # network: mainnet
@@ -60,7 +60,7 @@ dataSources:
         - event: Delete(address)
           handler: handleDeleteV2
       file: ./src/factory-mapping.ts
-  - kind: ethereum/contract
+  - kind: ethereum/contract #v21Factory
     name: V21Factory
     network: kovan
     source:
@@ -88,7 +88,35 @@ dataSources:
         - event: SummonComplete(indexed address,address[],address[],uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256[])
           handler: handleSummonV21
       file: ./src/factory-mapping.ts
-  - kind: ethereum/contract
+  - kind: ethereum/contract #v22Factory
+    name: V22Factory
+    network: kovan
+    source:
+      address: ""
+      abi: V22Factory
+      startBlock:
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - Register
+      abis:
+        - name: V22Factory
+          file: ./abis/V22Factory.json
+        - name: V2Moloch
+          file: ./abis/V2Moloch.json
+        - name: V21Moloch
+          file: ./abis/V21Moloch.json
+        - name: Erc20
+          file: ./abis/Erc20.json
+        - name: Erc20Bytes32
+          file: ./abis/Erc20Bytes32.json
+      eventHandlers:
+        - event: SummonComplete(indexed address,address,address,address[],uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleSummonV22
+      file: ./src/v22-factory-mapping.ts
+  - kind: ethereum/contract #molochDao
     name: MolochDAO
     network: mainnet
     source:
@@ -116,7 +144,7 @@ dataSources:
           handler: handleSummonCompleteMoloch
       file: ./src/legacy-mapping.ts
 templates:
-  - kind: ethereum/contract
+  - kind: ethereum/contract #v1Template
     name: MolochV1Template
     network: kovan
     # network: mainnet
@@ -153,7 +181,7 @@ templates:
           handler: handleProcessProposal
         - event: Ragequit(indexed address,uint256)
           handler: handleRagequit
-  - kind: ethereum/contract
+  - kind: ethereum/contract #v2Template
     name: MolochV2Template
     network: kovan
     # network: mainnet
@@ -200,8 +228,54 @@ templates:
           handler: handleRagequit
         - event: TokensCollected(indexed address,uint256)
           handler: handleTokensCollected
-  - kind: ethereum/contract
+  - kind: ethereum/contract #v21Template
     name: MolochV21Template
+    network: kovan
+    source:
+      abi: V21Moloch
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/v2-mapping.ts
+      entities:
+        - Moloch
+        - TokenBalance
+        - Token
+        - Member
+        - Vote
+        - Proposal
+        - Badge
+      abis:
+        - name: V21Moloch
+          file: ./abis/V21Moloch.json
+        - name: V2Moloch
+          file: ./abis/V2Moloch.json
+        - name: Erc20
+          file: ./abis/Erc20.json
+        - name: Erc20Bytes32
+          file: ./abis/Erc20Bytes32.json
+      eventHandlers:
+        - event: SubmitProposal(indexed address,uint256,uint256,uint256,address,uint256,address,string,bool[6],uint256,indexed address,indexed address)
+          handler: handleSubmitProposal
+        - event: SubmitVote(uint256,indexed uint256,indexed address,indexed address,uint8)
+          handler: handleSubmitVote
+        - event: SponsorProposal(indexed address,indexed address,uint256,uint256,uint256)
+          handler: handleSponsorProposal
+        - event: ProcessProposal(indexed uint256,indexed uint256,bool)
+          handler: handleProcessProposal
+        - event: ProcessGuildKickProposal(indexed uint256,indexed uint256,bool)
+          handler: handleProcessGuildKickProposal
+        - event: ProcessWhitelistProposal(indexed uint256,indexed uint256,bool)
+          handler: handleProcessWhitelistProposal
+        - event: Withdraw(indexed address,address,uint256)
+          handler: handleWithdraw
+        - event: Ragequit(indexed address,uint256,uint256)
+          handler: handleRagequit
+        - event: TokensCollected(indexed address,uint256)
+          handler: handleTokensCollected
+  - kind: ethereum/contract #v22Template
+    name: MolochV22Template
     network: kovan
     source:
       abi: V21Moloch

@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: V21Factory
-    network: optimism
+    network: goerli
     source:
-      address: '0x032865ACfc05E769902Fe90Bcc9d511875a74E66'
+      address: '0x72B8Bf40C8B316753a3E470689DA625759D2b025'
       abi: V21Factory
-      startBlock: 4864699
+      startBlock: 7103207
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
@@ -35,7 +35,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: MolochV21Template
-    network: optimism
+    network: goerli
     source:
       abi: V21Moloch
     mapping:
