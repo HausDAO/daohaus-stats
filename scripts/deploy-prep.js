@@ -2,24 +2,6 @@ const fs = require("fs");
 const yaml = require("js-yaml");
 
 const config = {
-  kovan: {
-    v1FactoryAddress: "0x0C60Cd59f42093c7489BA68BAA4d7A01f2468153",
-    v1FactoryStartBlock: 14980875,
-    v2FactoryAddress: "0xB47778d3BcCBf5e39dEC075CA5F185fc20567b1e",
-    v2FactoryStartBlock: 16845360,
-    v21FactoryAddress: "0x9c5d087f912e7187D9c75e90999b03FB31Ee17f5",
-    v21FactoryStartBlock: 22640938,
-  },
-  rinkeby: {
-    v1FactoryAddress: "0x610247467d0dfA8B477ad7Dd1644e86CB2a79F8F",
-    v1FactoryStartBlock: 6494343,
-    v2FactoryAddress: "0x763b61A62EF076ad960E1d513713B2aeD7C1b88e",
-    v2FactoryStartBlock: 6494329,
-    v21FactoryAddress: "0xC33a4EfecB11D2cAD8E7d8d2a6b5E7FEacCC521d",
-    v21FactoryStartBlock: 7771115,
-    v22FactoryAddress: "0xa24012Bcfc53b3C5c448726d99B68044cdADD77A",
-    v22FactoryStartBlock: 9901589,
-  },
   goerli: {
     v1FactoryAddress: "",
     v1FactoryStartBlock: "",
@@ -127,12 +109,6 @@ try {
 
     data.templates.splice(0, 2);
     data.templates.splice(1, 1);
-  }
-
-  // remove v22
-  if (network === "kovan") {
-    data.dataSources.splice(3, 1);
-    data.templates.splice(3, 1);
   }
 
   let yamlStr = yaml.safeDump(data);
