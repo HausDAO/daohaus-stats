@@ -6,10 +6,6 @@ Caching dao analytic data for all moloch daos summoned on daohaus.club.
 
 [daohaus-stats](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats)
 
-[daohaus-stats-kovan](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-kovan)
-
-[daohaus-stats-rinkeby](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-rinkeby)
-
 [daohaus-stats-goerli](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-goerli)
 
 [daohaus-stats-xdai](https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-xdai)
@@ -21,10 +17,6 @@ Caching dao analytic data for all moloch daos summoned on daohaus.club.
 ## Graph explorers
 
 [daohaus-stats](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats)
-
-[daohaus-stats-kovan](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-kovan)
-
-[daohaus-stats-rinkeby](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-rinkeby)
 
 [daohaus-stats-goerli](https://thegraph.com/explorer/subgraph/odyssy-automaton/daohaus-stats-goerli)
 
